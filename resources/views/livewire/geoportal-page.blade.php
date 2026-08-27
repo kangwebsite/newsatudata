@@ -152,6 +152,9 @@
         .then(data => {
             
             wayKananLayer = L.geoJSON(data, {
+                filter: function (feature) {
+                    return feature.geometry.type !== 'Point';
+                },
                 style: function (feature) {
                     return {
                         color: "#e74c3c",
