@@ -33,6 +33,11 @@ class ViewDataset extends Component
         return Storage::download($this->dataset->file);
     }
 
+    public function laporkan()
+    {
+        return $this->redirect('/pengaduan', navigate: true);
+    }
+
     public function render()
     {
         return view('livewire.view-dataset')->layout('layouts::app', [

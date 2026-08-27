@@ -216,7 +216,7 @@
                         </table>
                     </div>
                 </div>
-                <button class="w-full bg-white border border-red-200 text-red-600 hover:bg-red-50 py-3 rounded-xl text-sm font-medium transition flex justify-center items-center gap-2 cursor-pointer">
+                <button wire:click="laporkan" class="w-full bg-white border border-red-200 text-red-600 hover:bg-red-50 py-3 rounded-xl text-sm font-medium transition flex justify-center items-center gap-2 cursor-pointer">
                     <i class="ph ph-warning-circle text-lg"></i> Laporkan Masalah Data
                 </button>
             </aside>
