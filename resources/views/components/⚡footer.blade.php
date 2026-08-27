@@ -30,7 +30,7 @@ new class extends Component {
                 <ul class="space-y-2 text-xs text-brand-100 opacity-80">
                     <li><a href="/" wire:navigate class="hover:text-white transition">Beranda</a></li>
                     <li><a href="/dataset" wire:navigate class="hover:text-white transition">Dataset</a></li>
-                    <li><a href="/geoportal" wire:navigate class="hover:text-white transition">Geospasial</a></li>
+                    <li><a href="/geospasial" wire:navigate class="hover:text-white transition">Geospasial</a></li>
                     <li><a href="/visualisasi" wire:navigate class="hover:text-white transition">Visualisasi</a></li>
                     <li><a href="/publikasi" wire:navigate class="hover:text-white transition">Publikasi</a></li>                    
                 </ul>

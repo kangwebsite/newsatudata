@@ -11,7 +11,7 @@ new class extends Component
 
     public function geoportal()
     {
-        return $this->redirect('/geoportal', navigate: true);
+        return $this->redirect('/geospasial', navigate: true);
     }
 
     public function docs()

@@ -40,7 +40,7 @@ class GeoportalPage extends Component
     {
         return view('livewire.geoportal-page')->layout('layouts::app', [
             'SEOData' => new SEOData(
-                title: 'Peta Geoportal',
+                title: 'Peta Geospasial',
                 description: 'Eksplorasi data kewilayahan dan tematik Kabupaten Way Kanan dalam bentuk peta interaktif.'
             )
         ]);

@@ -24,7 +24,7 @@ Route::get('/publikasi', News::class);
 Route::get('/publikasi/tag/{slug}', SingleTag::class);
 Route::get('/publikasi/post/{post:slug}', SinglePost::class);
 Route::get('/pengaduan', Pengaduan::class);
-Route::get('/geoportal', GeoportalPage::class);
+Route::get('/geospasial', GeoportalPage::class);
 Route::get('/metadata', MetadataPage::class);
 Route::get('/metadata/{metadata}', MetadataDetailPage::class);
 Route::get('/tentang', Tentang::class);

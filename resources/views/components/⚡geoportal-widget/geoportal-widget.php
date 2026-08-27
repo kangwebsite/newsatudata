@@ -40,6 +40,6 @@ new class extends Component
 
     public function toGeoportal()
     {
-        return $this->redirect('/geoportal', navigate: true);
+        return $this->redirect('/geospasial', navigate: true);
     }
 };

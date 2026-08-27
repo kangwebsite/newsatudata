@@ -79,11 +79,11 @@ new class extends Component
                     <i class="ph ph-map-pin text-xl"></i>
                 </div>
                 <div>
-                    <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">Geoportal</div>
+                    <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">Geospasial</div>
                     <div class="text-xl font-bold text-slate-800">{{ $this->geoCount }}</div>
                 </div>
             </div>
-            <a href="/geoportal" wire:navigate class="text-brand-500 text-xs font-semibold flex items-center gap-1 hover:text-brand-700 mt-0 md:mt-2">Lihat Detail <i class="ph ph-arrow-right"></i></a>
+            <a href="/geospasial" wire:navigate class="text-brand-500 text-xs font-semibold flex items-center gap-1 hover:text-brand-700 mt-0 md:mt-2">Lihat Detail <i class="ph ph-arrow-right"></i></a>
         </div>
 
         <div class="bg-white rounded-2xl shadow-soft p-4 shrink-0 flex flex-col justify-between border border-gray-50 snap-start">
