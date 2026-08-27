@@ -2,3 +2,13 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/**/**/*';
+
+/* .fi-ta-header-cell, .fi-ta-actions-header-cell {
+    background-color: #0f766e !important;
+    color: #ffffff;
+} */
+
+.fi-ta-table thead th {
+    background-color: #0f766e !important;
+    color: #ffffff;
+}

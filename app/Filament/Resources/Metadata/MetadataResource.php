@@ -71,7 +71,7 @@ class MetadataResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name')->label('Judul Metadata')
                     ->searchable(),
                 TextColumn::make('tahun')
                     ->searchable(),

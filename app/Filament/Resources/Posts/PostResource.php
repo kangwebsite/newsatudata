@@ -34,7 +34,7 @@ class PostResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('title')
+                TextInput::make('title')->label('Judul Berita')
                     ->required(),
                 FileUpload::make('image')
                     ->image()
@@ -57,9 +57,9 @@ class PostResource extends Resource
         return $table
             ->recordTitleAttribute('title')
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('title')->label('Judul Berita')
                     ->searchable()->limit(30),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')->label('Gambar'),
                 TextColumn::make('viewCount')
                     ->label('Total Dilihat')
                     ->formatStateUsing(fn ($state) => number_format($state, 0, '.', '.'))->weight(FontWeight::Medium)->icon(Heroicon::OutlinedEye)

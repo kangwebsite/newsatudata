@@ -20,6 +20,7 @@ use UnitEnum;
 class GeoportalResource extends Resource
 {
     protected static ?string $model = Geoportal::class;
+    protected static ?string $navigationLabel = 'Geospasial';
     protected static string | UnitEnum | null $navigationGroup = 'Geospasial Management';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMap;
 
@@ -43,10 +44,10 @@ class GeoportalResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('geoType.name')->label('Geo Type'),
+                TextColumn::make('geoType.name')->label('Label'),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('location')
+                TextColumn::make('location')->label('Koordinat')
                     ->searchable(),
                 TextColumn::make('url')
                     ->searchable(),

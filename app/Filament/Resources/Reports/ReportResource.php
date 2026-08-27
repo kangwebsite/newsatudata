@@ -59,18 +59,20 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name')->label('Nama Lengkap')
                     ->searchable(),
-                TextColumn::make('organisation')
+                TextColumn::make('organisation')->label('Organisasi')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
                     ->searchable(),
-                TextColumn::make('phone')
+                TextColumn::make('phone')->label('Nomor Telepon / WhatsApp')
                     ->searchable(),
-                TextColumn::make('category')
+                TextColumn::make('category')->label('Kategori Laporan')
                     ->badge(),
-                TextColumn::make('url')
+                TextColumn::make('url')->label('Tautan (URL)')
+                    ->searchable(),
+                TextColumn::make('description')->label('Deskripsi')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
