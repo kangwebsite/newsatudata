@@ -1,0 +1,1 @@
+<livewire:dataset-excel-viewer :$dataset />

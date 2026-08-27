@@ -1,0 +1,198 @@
+@import 'tailwindcss';
+
+/* Required by all components */
+@import '../../vendor/filament/support/resources/css/index.css';
+
+/* Required by actions and tables */
+@import '../../vendor/filament/actions/resources/css/index.css';
+
+/* Required by actions, forms and tables */
+@import '../../vendor/filament/forms/resources/css/index.css';
+
+/* Required by actions and infolists */
+@import '../../vendor/filament/infolists/resources/css/index.css';
+
+/* Required by notifications */
+@import '../../vendor/filament/notifications/resources/css/index.css';
+
+/* Required by actions, infolists, forms, schemas and tables */
+@import '../../vendor/filament/schemas/resources/css/index.css';
+
+/* Required by tables */
+@import '../../vendor/filament/tables/resources/css/index.css';
+
+/* Required by widgets */
+@import '../../vendor/filament/widgets/resources/css/index.css';
+
+/* @variant dark (&:where(.dark, .dark *)); */
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-brand-50: #f0fdfa;
+    --color-brand-100: #ccfbf1;
+    --color-brand-200: #99f6e4;
+    --color-brand-300: #5eead4;
+    --color-brand-400: #2dd4bf;
+    --color-brand-500: #14b8a6;
+    --color-brand-600: #0d9488;
+    --color-brand-700: #0f766e;
+    --color-brand-800: #115e59;
+    --color-brand-900: #022c22;
+    --color-surface: #f8fafc;
+    --size-8xl: 80rem;
+    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 2px 10px -2px rgba(0, 0, 0, 0.03);
+}
+
+@utility hide-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@layer base {
+    hr {
+        @apply my-4 border-0 border-t border-gray-100;
+    }
+}
+
+@layer components {
+    .form-checkbox {
+        @apply appearance-none bg-white m-0 text-current size-[1.15em] 
+        border-[1.5px] border-slate-300 rounded-[0.25em] 
+        grid place-content-center cursor-pointer shrink-0;
+
+        &::before {
+            content: "";
+            @apply size-[0.65em] scale-0 transition-transform duration-[120ms] 
+            ease-in-out bg-white origin-center 
+            shadow-[inset_1em_1em_white];
+
+            clip-path: polygon(
+                14% 44%,
+                0 65%,
+                50% 100%,
+                100% 16%,
+                80% 0%,
+                43% 62%
+            );
+        }
+
+        &:checked {
+            @apply bg-teal-700 border-teal-700;
+
+            &::before {
+                @apply scale-100;
+            }
+        }
+    }
+
+    .bg-hero {
+        background-image: url('../images/bg-hero.png');
+    }
+
+    .bg-card {
+        position: relative;
+        background-color: white;
+        z-index: 1;
+    }
+
+    .bg-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        
+        background-image: url('../images/bg-card.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        
+        opacity: 0.8;
+        border-radius: inherit;
+    }
+
+    .api-content h2 {
+        @apply mt-10 mb-4 border-b border-slate-200 pb-2 text-2xl font-bold text-slate-800;
+        scroll-margin-top: 6rem;
+    }
+
+    .api-content h3 {
+        @apply mt-6 mb-3 text-lg font-semibold text-slate-700;
+        scroll-margin-top: 6rem;
+    }
+
+    .api-content p {
+        @apply mb-4 leading-relaxed text-slate-600;
+    }
+
+    .api-content table {
+        @apply mb-6 w-full border-collapse text-left;
+    }
+
+    .api-content th {
+        @apply border-b-2 border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600;
+    }
+
+    .api-content td {
+        @apply border-b border-slate-200 px-4 py-3 text-sm text-slate-600;
+    }
+
+    .api-content code:not(.block-code) {
+        @apply rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.875em] text-teal-700;
+    }
+
+    /* HTTP Method Badge */
+    .method-badge {
+        @apply rounded px-2 py-0.5 font-mono text-xs font-bold;
+    }
+
+    .method-get {
+        @apply bg-blue-50 text-blue-600;
+    }
+
+    .method-post {
+        @apply bg-green-50 text-green-600;
+    }
+}
+
+
+@layer utilities {
+    .custom-scrollbar::-webkit-scrollbar {
+        @apply w-1.5 h-1.5;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply rounded bg-slate-300;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        @apply bg-slate-400;
+    }
+
+    .code-scrollbar::-webkit-scrollbar {
+        @apply w-1.5 h-1.5;
+    }
+
+    .code-scrollbar::-webkit-scrollbar-track {
+        @apply rounded bg-slate-800;
+    }
+
+    .code-scrollbar::-webkit-scrollbar-thumb {
+        @apply rounded bg-slate-600;
+    }
+
+    .code-scrollbar::-webkit-scrollbar-thumb:hover {
+        @apply bg-slate-500;
+    }
+}
