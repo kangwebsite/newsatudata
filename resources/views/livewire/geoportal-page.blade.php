@@ -53,11 +53,11 @@
                     <span class="text-sm text-slate-600 group-hover:text-brand-700 transition line-clamp-1">Batas Kabupaten Way Kanan</span>
                 </label>
                 
-                @foreach ($this->geoTypes as $geoType)
+                @foreach ($this->allGeoTypes as $geoType)
                     <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" class="form-checkbox" id="geo{{ $geoType->id }}" wire:model.live="selected.{{ $geoType->id }}">
-                        <img src="{{ url('storage/' . $geoType->icon) }}" class="h-8" />
-                        <h2 class="font-bold text-slate-800 flex items-center gap-2">{{ $geoType->name }}</h2>
+                        <input type="checkbox" class="form-checkbox" id="geo{{ $geoType['id'] }}" wire:model.live="selected.{{ $geoType['id'] }}">
+                        <img src="{{ url('storage/' . $geoType['icon']) }}" class="h-8" />
+                        <h2 class="font-bold text-slate-800 flex items-center gap-2">{{ $geoType['name'] }}</h2>
                     </label>
                 @endforeach
             </div>
@@ -170,45 +170,43 @@
     })
 
     let markersArray = [];
-    let geoTypes = $wire.geoTypes;
-    console.log(geoTypes)
+    renderAgain($wire.geoTypes);
+    
+    $wire.on('markers-updated', (e) => {
+        renderAgain(e[0]);
+    });
 
-    // renderAgain();
+    function renderAgain(dataGeoTypes) {
+        
+        markersArray.forEach(marker => marker.remove());
+        markersArray = [];
 
-    // $wire.on('markers-updated', () => {
-    //     renderAgain();
-    // });
+        dataGeoTypes.forEach(item => {
+            item.geoportals.forEach(portal => {
+                let koordinat = JSON.parse(portal.location);
 
-    // function renderAgain() {
-    //     markersArray.forEach(marker => marker.remove());
-    //     markersArray = [];
-
-    //     geoTypes.forEach(item => {
-    //         item.geoportals.forEach(portal => {
-    //             let koordinat = JSON.parse(portal.location);
-
-    //             if (koordinat && koordinat.length === 2) {
-    //                 let lng = koordinat[0];
-    //                 let lat = koordinat[1];
+                if (koordinat && koordinat.length === 2) {
+                    let lng = koordinat[0];
+                    let lat = koordinat[1];
             
-    //                 let iconPath = '/storage/' + item.icon;
+                    let iconPath = '/storage/' + item.icon;
             
-    //                 let customIcon = L.icon({
-    //                     iconUrl: iconPath,
-    //                     iconSize: [18],
-    //                     iconAnchor: [16, 32],
-    //                     popupAnchor: [0, -32]
-    //                 });
+                    let customIcon = L.icon({
+                        iconUrl: iconPath,
+                        iconSize: [18],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [0, -32]
+                    });
             
-    //                 let marker = L.marker([lat, lng], { icon: customIcon })
-    //                     .addTo(map)
-    //                     .bindPopup(`<b>${portal.name}</b>`);
+                    let marker = L.marker([lat, lng], { icon: customIcon })
+                        .addTo(map)
+                        .bindPopup(`<b>${portal.name}</b>`);
 
-    //                 markersArray.push(marker);
-    //             }
-    //         });
-    //     });
-    // }
+                    markersArray.push(marker);
+                }
+            });
+        });
+    }
 
     function toggleBatasKab(isChecked) {
         if (!wayKananLayer) {
