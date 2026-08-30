@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DatasetApiController;
+use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,5 @@ Route::get('v2/dataset/{dataset:slug}', [DatasetApiController::class, 'getDatase
             'data'    => []
         ], 404);
     });
+
+Route::post('v2/posts', [PostController::class, 'store']);
