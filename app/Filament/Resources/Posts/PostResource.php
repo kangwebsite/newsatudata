@@ -12,6 +12,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ImportAction;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
@@ -39,7 +40,7 @@ class PostResource extends Resource
                 FileUpload::make('image')
                     ->image()
                     ->required(),
-                Textarea::make('body')
+                RichEditor::make('body')
                     ->required()
                     ->columnSpanFull(),
                 Textarea::make('tags')
