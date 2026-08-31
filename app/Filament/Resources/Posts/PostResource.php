@@ -57,6 +57,7 @@ class PostResource extends Resource
     {
         return $table
             ->recordTitleAttribute('title')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('title')->label('Judul Berita')
                     ->searchable()->limit(30),
