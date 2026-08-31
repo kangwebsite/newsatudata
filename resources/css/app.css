@@ -160,6 +160,38 @@
     .method-post {
         @apply bg-green-50 text-green-600;
     }
+
+    .article-content p {
+        @apply mb-6 leading-[1.8] text-slate-700;
+    }
+
+    .article-content h2 {
+        @apply mt-10 mb-4 text-2xl font-bold text-slate-800;
+    }
+
+    .article-content h3 {
+        @apply mt-8 mb-3 text-xl font-bold text-slate-800;
+    }
+
+    .article-content ul {
+        @apply mb-6 list-disc pl-6 text-slate-700;
+    }
+
+    .article-content li {
+        @apply mb-2 leading-[1.6];
+    }
+
+    .article-content blockquote {
+        @apply mb-6 rounded-r-lg border-l-4 border-teal-700 bg-slate-50 px-6 py-4 italic text-slate-600;
+    }
+
+    .article-content img {
+        @apply my-6 w-full rounded-xl;
+    }
+
+    .article-content figcaption {
+        @apply mb-6 mt-[-1rem] text-center text-sm text-slate-500;
+    }
 }
 
 
