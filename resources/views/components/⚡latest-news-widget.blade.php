@@ -33,7 +33,7 @@ new class extends Component {
                     @endforeach
                 </div>
                 
-                <a href="/post/{{ $post->slug }}" class="text-sm font-semibold text-slate-800 hover:text-brand-600 line-clamp-2 mt-1 leading-snug">{{ $post->title }}</a>
+                <a href="/publikasi/post/{{ $post->slug }}" class="text-sm font-semibold text-slate-800 hover:text-brand-600 line-clamp-2 mt-1 leading-snug">{{ $post->title }}</a>
                 <div class="flex items-center gap-2 mt-1 text-xs text-slate-500">
                     <span class="flex items-center gap-0.5"><i class="ph ph-calendar"></i> {{ $post->created_at->translatedFormat('j M Y') }}</span>
                     <span class="flex items-center gap-0.5"><i class="ph ph-eye"></i> {{ number_format($post->viewCount, 0, '.', '.') }}x</span>
