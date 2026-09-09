@@ -115,6 +115,7 @@ class Dataset extends Component
         $yearIds = array_keys(array_filter($this->activeFilters['tahun']));
 
         return ModelsDataset::with(['uploadBy.categoryAccount', 'categoryData', 'periodeData', 'typeData'])
+            ->where('status', 'approved')
             ->when($this->query, function ($q) {
                 $q->where('name', 'like', "%{$this->query}%")->orWhere('description', 'like', "%{$this->query}%");
             })
