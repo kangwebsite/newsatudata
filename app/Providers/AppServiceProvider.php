@@ -21,5 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         URL::forceScheme('https');
+        
+        // Policies are automatically discovered by Laravel via naming convention (App\Models\Model -> App\Policies\ModelPolicy),
+        // but we can also register them explicitly if needed or rely on auto-discovery.
     }
 }

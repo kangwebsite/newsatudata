@@ -14,6 +14,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DatasetsTable
@@ -22,7 +23,7 @@ class DatasetsTable
     {
         return $table
             ->defaultSort('id', 'desc')
-            ->modifyQueryUsing(fn ($query) => $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData']))
+            ->modifyQueryUsing(fn ($query) => $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData'])->where('upload_by', Auth::id()))
             ->columns([
                 TextColumn::make('name')->label('Judul Dataset')->searchable()->limit(20)->weight(FontWeight::Bold),
                 TextColumn::make('categoryData.name')->sortable()->label('Kategori')->badge()->color('info'),

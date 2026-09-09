@@ -13,7 +13,7 @@ class ReportPolicy
      */
     public function viewAny(User $user): bool
     {
-        return !in_array($user->role, ['admin', 'bps', 'user']);
+        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
     }
 
     /**
@@ -21,7 +21,7 @@ class ReportPolicy
      */
     public function view(User $user, Report $report): bool
     {
-        return !in_array($user->role, ['admin', 'bps', 'user']);
+        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
     }
 
     /**
@@ -29,7 +29,7 @@ class ReportPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
     }
 
     /**
@@ -37,7 +37,7 @@ class ReportPolicy
      */
     public function update(User $user, Report $report): bool
     {
-        return false;
+        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
     }
 
     /**
@@ -45,7 +45,7 @@ class ReportPolicy
      */
     public function delete(User $user, Report $report): bool
     {
-        return false;
+        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
     }
 
     /**
@@ -53,7 +53,7 @@ class ReportPolicy
      */
     public function restore(User $user, Report $report): bool
     {
-        return false;
+        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
     }
 
     /**
@@ -61,6 +61,6 @@ class ReportPolicy
      */
     public function forceDelete(User $user, Report $report): bool
     {
-        return false;
+        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
     }
 }
