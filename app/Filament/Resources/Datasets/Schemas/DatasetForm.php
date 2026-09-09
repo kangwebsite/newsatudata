@@ -30,7 +30,17 @@ class DatasetForm
                 ])->columns(3)->columnSpan(3),
                 Section::make([
                     Select::make('periode_data_id')->relationship('periodeData', 'name')->native(false)->columnSpan(1),
-                    FileUpload::make('file')->directory('datastore')->required(),
+                    FileUpload::make('file')
+                        ->directory('datastore')
+                        ->label('File (PDF, CSV, XLS, XLSX)')
+                        ->required()
+                        ->acceptedFileTypes([
+                            'application/pdf',
+                            'application/vnd.ms-excel',
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            'text/csv',
+                            'application/csv',
+                        ]),
                 ])->columns(1)->columnSpan(1)
             ])->columns(4);
     }
