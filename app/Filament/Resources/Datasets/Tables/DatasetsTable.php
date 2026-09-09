@@ -24,7 +24,7 @@ class DatasetsTable
         return $table
             ->defaultSort('id', 'desc')
             ->modifyQueryUsing(function ($query){
-                if (Auth::user()->role !== 'admin'){
+                if (Auth::user()->role->value !== 'admin'){
                     return $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData'])->where('upload_by', Auth::id());
                 }else{
                     return $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData']);
