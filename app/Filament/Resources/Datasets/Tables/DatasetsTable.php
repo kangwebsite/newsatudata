@@ -23,7 +23,13 @@ class DatasetsTable
     {
         return $table
             ->defaultSort('id', 'desc')
-            ->modifyQueryUsing(fn ($query) => $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData'])->where('upload_by', Auth::id()))
+            ->modifyQueryUsing(function ($query){
+                if (Auth::user()->role !== 'admin'){
+                    return $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData'])->where('upload_by', Auth::id());
+                }else{
+                    return $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData']);
+                }
+            })
             ->columns([
                 TextColumn::make('name')->label('Judul Dataset')->searchable()->limit(20)->weight(FontWeight::Bold),
                 TextColumn::make('categoryData.name')->sortable()->label('Kategori')->badge()->color('info'),
