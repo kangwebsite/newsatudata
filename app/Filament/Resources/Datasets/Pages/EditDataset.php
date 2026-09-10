@@ -21,12 +21,12 @@ class EditDataset extends EditRecord
                 ->modalContent(fn($record) => view(
                     'filament.actions.pratinjau-table',
                     ['dataset' => $record],
-                ))->outlined()->hidden(fn($record) => !Storage::disk('public')->exists($record->file) || $record->typeData->name === 'Buku'),
+                ))->outlined()->hidden(fn($record) => !Storage::disk('public')->exists($record->file) || $record->typeData->id === 2),
             Action::make('pratinjau_grafik')->label('Pratinjau GRAFIK')->icon(Heroicon::OutlinedChartBar)->modal()->modalSubmitAction(false)->modalCancelActionLabel('Tutup')
                 ->modalContent(fn($record) => view(
                     'filament.actions.pratinjau-chart',
                     ['dataset' => $record],
-                ))->color('warning')->outlined()->hidden(fn($record) => !Storage::disk('public')->exists($record->file) || $record->typeData->name !== 'Grafik'),
+                ))->color('warning')->outlined()->hidden(fn($record) => !Storage::disk('public')->exists($record->file) || $record->typeData->id !== 3),
             Action::make('pratinjau_pdf')->label('Pratinjau PDF')->icon(Heroicon::OutlinedDocument)->modal()->modalSubmitAction(false)->modalCancelActionLabel('Tutup')
                 ->modalContent(fn($record) => view(
                     'filament.actions.pratinjau-pdf',
@@ -35,8 +35,7 @@ class EditDataset extends EditRecord
                 ->modalWidth('5xl')
                 ->slideOver(false)
                 ->outlined()
-                ->hidden(fn($record) => !Storage::disk('public')->exists($record->file) || $record->typeData->name !== 'Buku'),
-            // ViewAction::make(),
+                ->hidden(fn($record) => !Storage::disk('public')->exists($record->file) || $record->typeData->id !== 2),
             DeleteAction::make(),
         ];
     }

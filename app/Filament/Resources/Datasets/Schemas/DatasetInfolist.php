@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources\Datasets\Schemas;
 
+use App\Filament\Infolists\Components\FileEntry;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\FontWeight;
 
 class DatasetInfolist
 {
@@ -12,28 +15,38 @@ class DatasetInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
-                TextEntry::make('slug'),
-                TextEntry::make('description')
-                    ->columnSpanFull(),
-                TextEntry::make('category_id')
-                    ->numeric(),
-                TextEntry::make('periode_id')
-                    ->numeric(),
-                TextEntry::make('type_id')
-                    ->numeric(),
-                TextEntry::make('file')
-                    ->placeholder('-')
-                    ->columnSpanFull(),
-                TextEntry::make('upload_by')
-                    ->numeric(),
-                TextEntry::make('dataStatus')->badge(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-            ]);
+                Section::make('Informasi Dasar')->schema([
+                    TextEntry::make('name')->label('Nama Dokumen')->weight(FontWeight::Bold),
+                    TextEntry::make('slug')->label('Slug System')->weight(FontWeight::Bold),
+                    TextEntry::make('description')->weight(FontWeight::Bold)
+                        ->label('Deskripsi')
+                        ->columnSpanFull(),
+                ])->columns(2)->columnSpan(1),
+
+                Section::make('Detail Teknis & Klasifikasi')->schema([
+                    TextEntry::make('categoryData.name')->label('Kategori')->weight(FontWeight::Bold),
+                    TextEntry::make('typeData.name')->label('Tipe Data')->weight(FontWeight::Bold),
+                    TextEntry::make('periodeData.name')->label('Periode')->placeholder('-')->weight(FontWeight::Bold),
+                    TextEntry::make('status')->badge()->label('Status')->weight(FontWeight::Bold),
+                ])->columns(3)->columnSpan(1),
+
+                Section::make('File Dokumen')->schema([
+                    FileEntry::make('file')->hiddenLabel()
+                ])->columns(1)->columnSpan(1),
+
+
+                Section::make('Metadata Pengunggahan')->schema([
+                    TextEntry::make('uploadBy.name')->label('Diupload Oleh')->weight(FontWeight::Bold),
+                    TextEntry::make('created_at')->weight(FontWeight::Bold)
+                        ->dateTime()
+                        ->label('Dibuat Pada')
+                        ->placeholder('-'),
+                    TextEntry::make('updated_at')->weight(FontWeight::Bold)
+                        ->dateTime()
+                        ->label('Diperbarui Pada')
+                        ->placeholder('-'),
+                ])->columns(3)->columnSpan(1),
+
+            ])->columns(2);
     }
 }
