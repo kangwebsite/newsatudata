@@ -70,6 +70,7 @@ class MetadataResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('name')->label('Judul Metadata')
                     ->searchable(),
