@@ -9,36 +9,36 @@ class PostPolicy
 {
     public function viewAny(User $user): bool
     {
-        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
+        return in_array($user->role?->value ?? $user->role, ['admin']);
     }
 
     public function view(User $user, Post $post): bool
     {
-        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
+        return in_array($user->role?->value ?? $user->role, ['admin']);
     }
 
     public function create(User $user): bool
     {
-        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
+        return in_array($user->role?->value ?? $user->role, ['admin']);
     }
 
     public function update(User $user, Post $post): bool
     {
-        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
+        return in_array($user->role?->value ?? $user->role, ['admin']);
     }
 
     public function delete(User $user, Post $post): bool
     {
-        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
+        return in_array($user->role?->value ?? $user->role, ['admin']);
     }
 
     public function restore(User $user, Post $post): bool
     {
-        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
+        return in_array($user->role?->value ?? $user->role, ['admin']);
     }
 
     public function forceDelete(User $user, Post $post): bool
     {
-        return in_array($user->role?->value ?? $user->role, ['admin', 'bps']);
+        return in_array($user->role?->value ?? $user->role, ['admin']);
     }
 }

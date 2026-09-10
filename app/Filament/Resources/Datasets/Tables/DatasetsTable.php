@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Datasets\Tables;
 
 use App\Filament\Imports\DatasetImporter;
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -24,7 +25,7 @@ class DatasetsTable
         return $table
             ->defaultSort('id', 'desc')
             ->modifyQueryUsing(function ($query){
-                if (Auth::user()->role->value !== 'admin'){
+                if (!in_array(Auth::user()->role->value, ['admin', 'bps'])){
                     return $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData'])->where('upload_by', Auth::id());
                 }else{
                     return $query->with(['uploadBy', 'typeData', 'periodeData', 'categoryData']);
@@ -61,7 +62,11 @@ class DatasetsTable
                 //
             ])
             ->recordActions([
-                ActionGroup::make([                    
+                ActionGroup::make([
+                    Action::make('approved')->icon(Heroicon::OutlinedCheckCircle)->requiresConfirmation()->color('info')->action(fn ($record) => $record->update(['status' => 'approved']))->visible(auth()->user()->role->value === 'admin'),
+
+                    Action::make('verified')->icon(Heroicon::OutlinedCheckCircle)->requiresConfirmation()->color('info')->action(fn ($record) => $record->update(['status' => 'verified']))->visible(auth()->user()->role->value === 'bps'),
+                    Action::make('rejected')->icon(Heroicon::OutlinedXCircle)->requiresConfirmation()->color('danger')->action(fn ($record) => $record->update(['status' => 'rejected']))->visible(auth()->user()->role->value === 'bps'),
                     ViewAction::make(),
                     EditAction::make(),
                 ])->button()->outlined()->size('sm')
