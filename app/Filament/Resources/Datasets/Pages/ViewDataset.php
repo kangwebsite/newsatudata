@@ -36,6 +36,11 @@ class ViewDataset extends ViewRecord
                 ->slideOver(false)
                 ->outlined()
                 ->hidden(fn($record) => !Storage::disk('public')->exists($record->file) || $record->typeData->id !== 2),
+
+            Action::make('approved')->icon(Heroicon::OutlinedCheckCircle)->requiresConfirmation()->color('info')->action(fn($record) => $record->update(['status' => 'approved']))->visible(auth()->user()->role->value === 'admin'),
+
+            Action::make('verified')->icon(Heroicon::OutlinedCheckCircle)->requiresConfirmation()->color('info')->action(fn($record) => $record->update(['status' => 'verified']))->visible(auth()->user()->role->value === 'bps'),
+            Action::make('rejected')->icon(Heroicon::OutlinedXCircle)->requiresConfirmation()->color('danger')->action(fn($record) => $record->update(['status' => 'rejected']))->visible(auth()->user()->role->value === 'bps'),
             EditAction::make(),
         ];
     }
