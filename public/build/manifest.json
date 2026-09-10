@@ -28,7 +28,7 @@
     "src": "_instrument-sans-600-normal-B9e8oLYv.woff"
   },
   "resources/css/app.css": {
-    "file": "assets/app-C1ChBbzc.css",
+    "file": "assets/app-D0GKVI9u.css",
     "name": "app",
     "names": [
       "app.css"
@@ -36,12 +36,12 @@
     "src": "resources/css/app.css",
     "isEntry": true,
     "assets": [
-      "assets/bg-hero-BKeRjUYo.png",
+      "assets/new-bg-hero-DCDeJc36.png",
       "assets/bg-card-CgsEAJna.jpg"
     ]
   },
   "resources/css/filament/admin/theme.css": {
-    "file": "assets/theme-CgLtt47h.css",
+    "file": "assets/theme-4kFTIBYa.css",
     "name": "theme",
     "names": [
       "theme.css"
@@ -53,9 +53,9 @@
     "file": "assets/bg-card-CgsEAJna.jpg",
     "src": "resources/images/bg-card.jpg"
   },
-  "resources/images/bg-hero.png": {
-    "file": "assets/bg-hero-BKeRjUYo.png",
-    "src": "resources/images/bg-hero.png"
+  "resources/images/new-bg-hero.png": {
+    "file": "assets/new-bg-hero-DCDeJc36.png",
+    "src": "resources/images/new-bg-hero.png"
   },
   "resources/js/app.js": {
     "file": "assets/app-BvRk9kiK.js",
