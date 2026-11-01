@@ -21,6 +21,8 @@
 /storage/pail
 /vendor
 _ide_helper.php
+/next_satudata_*_mysql_data_*.sql
+*.zip
 Homestead.json
 Homestead.yaml
 Thumbs.db
