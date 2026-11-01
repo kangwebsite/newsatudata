@@ -115,20 +115,22 @@
                         </div>
 
 
-                        <div wire:ignore>
-                            <div class="cf-turnstile" 
-                                data-sitekey="{{ config('services.turnstile.site_key') }}" 
-                                data-callback="turnstileCallback">
+                        @if (config('services.turnstile.enabled'))
+                            <div wire:ignore>
+                                <div class="cf-turnstile" 
+                                    data-sitekey="{{ config('services.turnstile.site_key') }}" 
+                                    data-callback="turnstileCallback">
+                                </div>
                             </div>
-                        </div>
-                        <script>
-                            function turnstileCallback(token) {
-                                @this.set('turnstileToken', token);
-                            }
-                        </script>
-                        @error('turnstileToken') 
-                            <span style="color: red;">{{ $message }}</span> 
-                        @enderror
+                            <script>
+                                function turnstileCallback(token) {
+                                    @this.set('turnstileToken', token);
+                                }
+                            </script>
+                            @error('turnstileToken') 
+                                <span style="color: red;">{{ $message }}</span> 
+                            @enderror
+                        @endif
                         
 
                         <div class="pt-4 flex items-center justify-between border-t border-gray-100">

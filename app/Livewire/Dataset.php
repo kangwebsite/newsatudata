@@ -7,6 +7,7 @@ use App\Models\CategoryData;
 use App\Models\Dataset as ModelsDataset;
 use App\Models\TypeData;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Session;
 use Livewire\Component;
@@ -36,7 +37,12 @@ class Dataset extends Component
     public function mount()
     {
         $this->dataTypes = TypeData::get('*');
-        $this->years = ModelsDataset::selectRaw('YEAR(created_at) as year')->distinct()->orderBy('year', 'desc')->pluck('year');
+        // YEAR() is MySQL-only; use strftime() on SQLite so local dev works.
+        $yearExpression = DB::connection()->getDriverName() === 'sqlite'
+            ? "strftime('%Y', created_at)"
+            : 'YEAR(created_at)';
+
+        $this->years = ModelsDataset::selectRaw("{$yearExpression} as year")->distinct()->orderBy('year', 'desc')->pluck('year');
     }
 
     public function removeFilter($group, $id)

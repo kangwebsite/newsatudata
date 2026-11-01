@@ -11,13 +11,17 @@ class Login extends BaseLogin
 {
     public function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                $this->getEmailFormComponent(),
-                $this->getPasswordFormComponent(),
-                $this->getRememberFormComponent(),
-                TurnstileVerification::make('turnstile')->hiddenLabel()->required()->rules([new Turnstile()])
-            ]);
+        $components = [
+            $this->getEmailFormComponent(),
+            $this->getPasswordFormComponent(),
+            $this->getRememberFormComponent(),
+        ];
+
+        if (config('services.turnstile.enabled')) {
+            $components[] = TurnstileVerification::make('turnstile')->hiddenLabel()->required()->rules([new Turnstile()]);
+        }
+
+        return $schema->components($components);
     }
 
     // public function form(Form $form): Form

@@ -30,7 +30,9 @@
 
         @livewire('notifications')
 
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        @if (config('services.turnstile.enabled'))
+            <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        @endif
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         @filamentScripts
         @vite('resources/js/app.js')

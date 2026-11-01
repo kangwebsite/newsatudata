@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\GeoType;
+use App\Models\Road;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Session;
 use Livewire\Component;
@@ -11,8 +12,10 @@ use RalphJSmit\Laravel\SEO\Support\SEOData;
 class GeoportalPage extends Component
 {
     public array $allGeoTypes = [];
+    public array $roads = [];
     public $mapType = 'default';
     public $polygon = true;
+    public $showJalan = false;
     public array $geoTypes = [];
 
     #[Session]
@@ -27,6 +30,24 @@ class GeoportalPage extends Component
         }
 
         $this->geoTypes = $this->allGeoTypes;
+
+        $this->roads = Road::select('id', 'name', 'type', 'warna', 'path_coordinates')
+            ->whereNotNull('path_coordinates')
+            ->get()
+            ->map(function ($road) {
+                $coords = is_string($road->path_coordinates)
+                    ? json_decode($road->path_coordinates, true)
+                    : $road->path_coordinates;
+
+                return [
+                    'id' => $road->id,
+                    'name' => $road->name,
+                    'type' => $road->type,
+                    'warna' => $road->warna,
+                    'coordinates' => is_array($coords) ? $coords : [],
+                ];
+            })
+            ->toArray();
     }
 
     public function updatedMapType()
@@ -37,6 +58,11 @@ class GeoportalPage extends Component
     public function updatedPolygon()
     {
         $this->dispatch('toggle-poly', $this->polygon);
+    }
+
+    public function updatedShowJalan()
+    {
+        $this->dispatch('toggle-jalan', $this->showJalan);
     }
 
     public function updatedSelected()

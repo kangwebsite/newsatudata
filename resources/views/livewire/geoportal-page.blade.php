@@ -52,7 +52,13 @@
                     <i class="ph ph-polygon"></i>
                     <span class="text-sm text-slate-600 group-hover:text-brand-700 transition line-clamp-1">Batas Kabupaten Way Kanan</span>
                 </label>
-                
+
+                <label class="flex items-center gap-3 cursor-pointer group mb-4">
+                    <input type="checkbox" class="form-checkbox" wire:model.live='showJalan'>
+                    <i class="ph ph-road text-brand-600"></i>
+                    <span class="text-sm text-slate-600 group-hover:text-brand-700 transition line-clamp-1">Data Jalan</span>
+                </label>
+
                 @foreach ($this->allGeoTypes as $geoType)
                     <label class="flex items-center gap-3 cursor-pointer group">
                         <input type="checkbox" class="form-checkbox" id="geo{{ $geoType['id'] }}" wire:model.live="selected.{{ $geoType['id'] }}">
@@ -210,6 +216,61 @@
             });
         });
     }
+
+    let jalanLayer;
+    let jalanMarkers = [];
+
+    function renderJalan(roads) {
+        if (jalanLayer) {
+            map.removeLayer(jalanLayer);
+        }
+        jalanMarkers.forEach(m => m.remove());
+        jalanMarkers = [];
+
+        const jalanFeatures = roads.map(road => {
+            const coords = road.coordinates;
+            if (!Array.isArray(coords) || coords.length < 2) return null;
+
+            const latlngs = coords.map(c => [c[0], c[1]]);
+            return {
+                id: road.id,
+                name: road.name,
+                type: road.type,
+                warna: road.warna,
+                latlngs: latlngs,
+            };
+        }).filter(Boolean);
+
+        jalanLayer = L.featureGroup(jalanFeatures.map(f => {
+            const line = L.polyline(f.latlngs, {
+                color: f.warna || '#0f766e',
+                weight: 3,
+                opacity: 0.8,
+            }).bindPopup(`<b>${f.name}</b><br>Kategori: ${f.type}`);
+
+            // Titik A dan B
+            const [first, last] = f.latlngs;
+            jalanMarkers.push(L.marker(first).bindPopup(`Titik A: ${f.name}`));
+            jalanMarkers.push(L.marker(last).bindPopup(`Titik B: ${f.name}`));
+
+            return line;
+        })).addTo(map);
+    }
+
+    renderJalan(@js($this->roads));
+
+    $wire.on('toggle-jalan', (e) => {
+        const show = e[0];
+        if (jalanLayer) {
+            if (show) {
+                map.addLayer(jalanLayer);
+                jalanMarkers.forEach(m => m.addTo(map));
+            } else {
+                map.removeLayer(jalanLayer);
+                jalanMarkers.forEach(m => m.remove());
+            }
+        }
+    });
 
     function toggleBatasKab(isChecked) {
         if (!wayKananLayer) {

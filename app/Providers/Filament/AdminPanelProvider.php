@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
 use Filament\Enums\UserMenuPosition;
+use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -13,8 +14,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -33,7 +32,9 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login(Login::class)
             ->spa()
-            ->font('Poppins')
+            // Font di-self-host (public/fonts/poppins) supaya tidak ada request
+            // render-blocking ke fonts.bunny.net saat dashboard dibuka.
+            ->font('Poppins', url: '/fonts/poppins/poppins.css', provider: LocalFontProvider::class)
             ->maxContentWidth(Width::Full)
             ->homeUrl('/')
             ->favicon('/storage/favicon.png')
@@ -53,17 +54,16 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
                 'brand' => '#0f766e',
             ])
-            ->renderHook('panels::head.end', fn(): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>')
+            ->renderHook('panels::head.end', fn(): string => config('services.turnstile.enabled')
+                ? '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
+                : '')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
-            ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

@@ -21,7 +21,9 @@ class Pengaduan extends Component
 
     public function submit()
     {
-        $this->validate([
+        $turnstileEnabled = config('services.turnstile.enabled');
+
+        $rules = [
             'name' => 'required|string|max:255',
             'organisation' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
@@ -29,19 +31,26 @@ class Pengaduan extends Component
             'category' => 'required|string|in:data_salah,data_kadaluarsa,permohonan_data,bug_sistem,lainnya',
             'url' => 'nullable|url|max:255',
             'description' => 'required|string',
-            'turnstileToken' => 'required|string',
-        ]);
+        ];
 
-        $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-            'secret' => config('services.turnstile.secret_key'),
-            'response' => $this->turnstileToken,
-            'remoteip' => request()->ip(),
-        ]);
+        if ($turnstileEnabled) {
+            $rules['turnstileToken'] = 'required|string';
+        }
 
-        if (!$response->json('success')) {
-            throw ValidationException::withMessages([
-                'turnstileToken' => 'Validasi keamanan gagal, silakan coba lagi.',
+        $this->validate($rules);
+
+        if ($turnstileEnabled) {
+            $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                'secret' => config('services.turnstile.secret_key'),
+                'response' => $this->turnstileToken,
+                'remoteip' => request()->ip(),
             ]);
+
+            if (!$response->json('success')) {
+                throw ValidationException::withMessages([
+                    'turnstileToken' => 'Validasi keamanan gagal, silakan coba lagi.',
+                ]);
+            }
         }
 
         Report::create([
